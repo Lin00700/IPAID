@@ -45,13 +45,13 @@ enum IPAComparison {
         let rightInfo = right.info
 
         func value(_ text: String) -> String {
-            text.isEmpty ? "None" : text
+            text.isEmpty ? "无" : text
         }
 
         let metadata: [IPAMetadataDifference] = [
             IPAMetadataDifference(
                 id: "name",
-                label: "App name",
+                label: "应用名称",
                 left: value(leftInfo.displayName),
                 right: value(rightInfo.displayName)
             ),
@@ -63,49 +63,49 @@ enum IPAComparison {
             ),
             IPAMetadataDifference(
                 id: "marketingVersion",
-                label: "Marketing version",
+                label: "版本号",
                 left: value(leftInfo.marketingVersion),
                 right: value(rightInfo.marketingVersion)
             ),
             IPAMetadataDifference(
                 id: "buildNumber",
-                label: "Build number",
+                label: "构建号",
                 left: value(leftInfo.buildNumber),
                 right: value(rightInfo.buildNumber)
             ),
             IPAMetadataDifference(
                 id: "minimumOSVersion",
-                label: "Minimum iOS",
+                label: "最低 iOS",
                 left: value(leftInfo.minimumOSVersion),
                 right: value(rightInfo.minimumOSVersion)
             ),
             IPAMetadataDifference(
                 id: "executable",
-                label: "Executable",
+                label: "可执行文件",
                 left: value(leftInfo.executable),
                 right: value(rightInfo.executable)
             ),
             IPAMetadataDifference(
                 id: "architectures",
-                label: "Architectures",
+                label: "架构",
                 left: value(leftInfo.architectures.joined(separator: ", ")),
                 right: value(rightInfo.architectures.joined(separator: ", "))
             ),
             IPAMetadataDifference(
                 id: "extensions",
-                label: "Extensions",
+                label: "扩展",
                 left: "\(leftInfo.extensions.count)",
                 right: "\(rightInfo.extensions.count)"
             ),
             IPAMetadataDifference(
                 id: "extensionIDs",
-                label: "Extension IDs",
+                label: "扩展 ID",
                 left: extensionIDs(leftInfo),
                 right: extensionIDs(rightInfo)
             ),
             IPAMetadataDifference(
                 id: "size",
-                label: "File size",
+                label: "文件大小",
                 left: IPAFormatting.fileSize(leftInfo.fileSize),
                 right: IPAFormatting.fileSize(rightInfo.fileSize)
             )
@@ -143,7 +143,7 @@ enum IPAComparison {
             .filter { !$0.isEmpty }
             .sorted()
 
-        return identifiers.isEmpty ? "None" : identifiers.joined(separator: ", ")
+        return identifiers.isEmpty ? "无" : identifiers.joined(separator: ", ")
     }
 
     private struct FileFingerprint: Equatable {

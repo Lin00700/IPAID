@@ -46,7 +46,7 @@ final class ValidationTests: XCTestCase {
     }
 
     func testEmptyFieldsShareTheCannotBeEmptyMessage() {
-        XCTAssertEqual(MetadataValidation.cannotBeEmpty, "Cannot be empty")
+        XCTAssertEqual(MetadataValidation.cannotBeEmpty, "不能为空")
         XCTAssertFalse(MetadataValidation.displayName("").isEmpty)
         XCTAssertFalse(MetadataValidation.displayName("   ").isEmpty)
         XCTAssertFalse(MetadataValidation.bundleIdentifier("").isEmpty)
@@ -71,11 +71,11 @@ final class ValidationTests: XCTestCase {
 
         XCTAssertEqual(
             ExtensionSelection.bulkTitle(available: available, removed: []),
-            "Disable All"
+            "全部禁用"
         )
         XCTAssertEqual(
             ExtensionSelection.bulkTitle(available: available, removed: ["B"]),
-            "Enable All"
+            "全部启用"
         )
     }
 
@@ -110,7 +110,7 @@ final class ValidationTests: XCTestCase {
 
     func testExtensionBulkHandlesAnEmptyList() {
         XCTAssertTrue(ExtensionSelection.allEnabled(available: [], removed: []))
-        XCTAssertEqual(ExtensionSelection.bulkTitle(available: [], removed: []), "Disable All")
+        XCTAssertEqual(ExtensionSelection.bulkTitle(available: [], removed: []), "全部禁用")
         XCTAssertEqual(ExtensionSelection.bulkSelection(available: [], removed: []), Set<String>())
     }
 }

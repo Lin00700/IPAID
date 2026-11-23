@@ -4,7 +4,7 @@ enum IPAFormatting {
 
     static func fileSize(_ bytes: Int64) -> String {
         guard bytes > 0 else {
-            return "Unknown"
+            return "未知"
         }
 
         let formatter = ByteCountFormatter()

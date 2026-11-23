@@ -50,7 +50,7 @@ struct FileTextEditorView: View {
 
                 HStack(spacing: 10) {
                     Button(action: onClose) {
-                        Text("Cancel")
+                        Text("取消")
                             .font(.subheadline.weight(.semibold))
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 9)
@@ -58,7 +58,7 @@ struct FileTextEditorView: View {
                     .ipaidGlassButton(.red)
 
                     Button(action: save) {
-                        Text("Save")
+                        Text("保存")
                             .font(.subheadline.weight(.semibold))
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 9)
@@ -67,7 +67,7 @@ struct FileTextEditorView: View {
                     .disabled(!isChanged)
                 }
 
-                Text("Saved changes are included when you export.")
+                Text("保存的修改会在导出时写入。")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
@@ -77,7 +77,7 @@ struct FileTextEditorView: View {
 
     private func save() {
         guard let data = TextFileEditing.encode(text) else {
-            errorMessage = "This file is too large to save."
+            errorMessage = "此文件太大，无法保存。"
             return
         }
 

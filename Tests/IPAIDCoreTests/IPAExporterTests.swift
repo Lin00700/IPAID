@@ -224,7 +224,7 @@ final class IPAExporterTests: XCTestCase {
 
         let problems = modifications.problems(comparedTo: archive.info)
         XCTAssertTrue(problems.contains("Bundle ID must contain at least one dot."))
-        XCTAssertTrue(problems.contains("Marketing version must use numbers separated by dots."))
+        XCTAssertTrue(problems.contains("版本号只能由数字和点号组成。"))
     }
 
     func testExportRejectsProtectedPlistKeys() throws {
@@ -236,7 +236,7 @@ final class IPAExporterTests: XCTestCase {
         modifications.plistOverrides.set(.string("x"), for: "CFBundleExecutable")
 
         let problems = modifications.problems(comparedTo: archive.info)
-        XCTAssertTrue(problems.contains { $0.contains("managed by IPAID") })
+        XCTAssertTrue(problems.contains { $0.contains("由 IPAID 管理") })
     }
 
     func testExportRejectsOutputEqualToSource() throws {

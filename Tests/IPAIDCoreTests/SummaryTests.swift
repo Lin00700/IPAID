@@ -92,7 +92,7 @@ final class SummaryTests: XCTestCase {
             modifications: modifications
         )
 
-        XCTAssertFalse(summary.warnings.contains { $0.lowercased().contains("re-sign") })
+        XCTAssertFalse(summary.warnings.contains { $0.contains("重新签名") })
     }
 
     func testIconFilesAreCollectedSeparately() throws {

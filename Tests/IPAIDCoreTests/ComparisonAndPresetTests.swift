@@ -164,7 +164,7 @@ final class ComparisonAndPresetTests: XCTestCase {
         XCTAssertTrue(plan.modifications.removedExtensions.isEmpty)
         XCTAssertTrue(plan.isEmpty)
         XCTAssertEqual(plan.warnings.count, 1)
-        XCTAssertTrue(plan.warnings[0].contains("not in this app"))
+        XCTAssertTrue(plan.warnings[0].contains("不在本应用中"))
     }
 
     func testPresetKeepsExtensionsPresentInTheApp() throws {
@@ -185,7 +185,7 @@ final class ComparisonAndPresetTests: XCTestCase {
 
         XCTAssertEqual(plan.modifications.removedExtensions, [present])
         XCTAssertEqual(plan.changes.map(\.id), ["extensions"])
-        XCTAssertTrue(plan.warnings.contains { $0.contains("1 saved extension") })
+        XCTAssertTrue(plan.warnings.contains { $0.contains("1 个已保存的扩展") })
     }
 
     func testPresetWarnsWhenSavedFromAnotherApp() throws {

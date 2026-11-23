@@ -108,7 +108,7 @@ struct ExportPreset: Codable, Equatable, Identifiable {
             changes.append(
                 IPAModificationChange(
                     id: "displayName",
-                    label: "Display name",
+                    label: "显示名称",
                     original: modifications.trimmedDisplayName,
                     updated: displayName
                 )
@@ -120,7 +120,7 @@ struct ExportPreset: Codable, Equatable, Identifiable {
             changes.append(
                 IPAModificationChange(
                     id: "marketingVersion",
-                    label: "Marketing version",
+                    label: "版本号",
                     original: modifications.trimmedMarketingVersion,
                     updated: marketingVersion
                 )
@@ -132,7 +132,7 @@ struct ExportPreset: Codable, Equatable, Identifiable {
             changes.append(
                 IPAModificationChange(
                     id: "buildNumber",
-                    label: "Build number",
+                    label: "构建号",
                     original: modifications.trimmedBuildNumber,
                     updated: buildNumber
                 )
@@ -144,9 +144,9 @@ struct ExportPreset: Codable, Equatable, Identifiable {
             changes.append(
                 IPAModificationChange(
                     id: "urlScheme",
-                    label: "URL scheme",
-                    original: modifications.trimmedURLScheme.isEmpty ? "None" : modifications.trimmedURLScheme,
-                    updated: urlScheme.isEmpty ? "None" : urlScheme
+                    label: "URL Scheme",
+                    original: modifications.trimmedURLScheme.isEmpty ? "无" : modifications.trimmedURLScheme,
+                    updated: urlScheme.isEmpty ? "无" : urlScheme
                 )
             )
         }
@@ -161,17 +161,17 @@ struct ExportPreset: Codable, Equatable, Identifiable {
                 changes.append(
                     IPAModificationChange(
                         id: "extensions",
-                        label: "Extensions",
-                        original: "\(info.extensions.count) in this app",
-                        updated: "\(info.extensions.count - kept.count) kept, \(kept.count) removed"
+                        label: "扩展",
+                        original: "本应用共 \(info.extensions.count) 个",
+                        updated: "保留 \(info.extensions.count - kept.count) 个，移除 \(kept.count) 个"
                     )
                 )
             }
 
             if skipped == 1 {
-                warnings.append("1 saved extension is not in this app and will be skipped.")
+                warnings.append("有 1 个已保存的扩展不在本应用中，将被跳过。")
             } else if skipped > 1 {
-                warnings.append("\(skipped) saved extensions are not in this app and will be skipped.")
+                warnings.append("有 \(skipped) 个已保存的扩展不在本应用中，将被跳过。")
             }
         }
 
@@ -179,7 +179,7 @@ struct ExportPreset: Codable, Equatable, Identifiable {
 
         if !source.isEmpty, source != info.bundleIdentifier {
             warnings.insert(
-                "Saved from \(source). Check these changes before applying them to \(info.bundleIdentifier).",
+                "此预设保存自 \(source)。应用到 \(info.bundleIdentifier) 之前请先确认这些更改。",
                 at: 0
             )
         }

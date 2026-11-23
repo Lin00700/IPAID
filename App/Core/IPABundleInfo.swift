@@ -41,86 +41,86 @@ struct IPAExtensionInfo: Equatable, Identifiable {
         let lower = name.lowercased()
 
         if lower.contains("widget") {
-            return "Adds Home Screen or Lock Screen widget support. Removing it disables that widget."
+            return "提供桌面或锁定屏幕小组件支持。移除后该小组件将无法使用。"
         }
 
         if lower.contains("intent") || lower.contains("siri") {
-            return "Handles Siri, Shortcuts, or App Intent actions. Removing it may disable automation features."
+            return "处理 Siri、快捷指令或 App Intent 操作。移除后相关自动化功能可能失效。"
         }
 
         if lower.contains("notification service") {
-            return "Handles enhanced notification content, images, or media. Removing it may make notifications more basic."
+            return "处理通知的增强内容、图片或媒体。移除后通知可能只显示基础样式。"
         }
 
         if lower.contains("notification content") {
-            return "Provides custom notification layouts. Removing it may disable rich notification views."
+            return "提供自定义通知布局。移除后可能无法显示富通知界面。"
         }
 
         if lower.contains("notification") {
-            return "Supports notification-related features. Removing it may affect alerts or notification previews."
+            return "支持与通知相关的功能。移除后可能影响提醒或通知预览。"
         }
 
         if lower.contains("safari") {
-            return "Adds Safari integration. Removing it may disable Safari extension features."
+            return "提供 Safari 集成。移除后 Safari 扩展功能可能失效。"
         }
 
         if lower.contains("share") {
-            return "Adds Share Sheet integration. Removing it may stop the app appearing in share menus."
+            return "提供分享面板集成。移除后应用可能不再出现在分享菜单中。"
         }
 
         if lower.contains("watch") {
-            return "Adds Apple Watch support. Removing it may disable watchOS companion features."
+            return "提供 Apple Watch 支持。移除后 watchOS 配套功能可能失效。"
         }
 
-        return "App extension component. Removing it can reduce signing/App ID usage, but some app features may stop working."
+        return "应用扩展组件。移除后可减少签名与 App ID 占用，但应用的某些功能可能无法使用。"
     }
 
     static func tip(forPointIdentifier identifier: String) -> String? {
         switch identifier.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() {
         case "com.apple.widgetkit-extension":
-            return "Adds Home Screen, Lock Screen or StandBy widgets. Removing it disables this app's widgets."
+            return "提供桌面、锁定屏幕或待机显示小组件。移除后此应用的小组件将无法使用。"
 
         case "com.apple.widget-extension":
-            return "Adds the legacy Today widget, shown when swiping right on the Home Screen."
+            return "提供旧版今日小组件，在桌面右滑时显示。"
 
         case "com.apple.notification-service-extension":
-            return "Attaches images and media to notifications. Removing it may make notifications plainer."
+            return "为通知附加图片和媒体。移除后通知会变得简单。"
 
         case "com.apple.notification-content-extension":
-            return "Draws custom notification layouts. Removing it may disable rich notification views."
+            return "绘制自定义通知布局。移除后可能无法显示富通知界面。"
 
         case "com.apple.share-services":
-            return "Adds this app to the system Share Sheet. Removing it stops it appearing in share menus."
+            return "把此应用加入系统分享面板。移除后应用将不再出现在分享菜单中。"
 
         case "com.apple.safari.extension", "com.apple.safari.content-blocker":
-            return "Adds a Safari extension or content blocker. Removing it disables that feature in Safari."
+            return "提供 Safari 扩展或内容拦截器。移除后 Safari 中的该功能将关闭。"
 
         case "com.apple.intents-service", "com.apple.intents-ui-service":
-            return "Handles Siri, Shortcuts and App Intents. Removing it may disable those actions."
+            return "处理 Siri、快捷指令和 App Intent。移除后这些操作可能失效。"
 
         case "com.apple.keyboard-service":
-            return "Adds a custom keyboard. Removing it removes that keyboard from Settings."
+            return "提供自定义键盘。移除后该键盘会从系统设置中消失。"
 
         case "com.apple.watchkit-extension":
-            return "Adds the watchOS app. Removing it may disable Apple Watch features."
+            return "提供 watchOS 应用。移除后 Apple Watch 相关功能可能失效。"
 
         case "com.apple.background-asset-downloader-extension":
-            return "Downloads App Store assets in the background. Removing it may delay first launch."
+            return "在后台下载 App Store 资源。移除后首次启动可能变慢。"
 
         case "com.apple.fileprovider-nonui":
-            return "Provides files to the Files app. Removing it removes this app's location from Files."
+            return "向「文件」App 提供内容。移除后「文件」中将不再显示此应用的位置。"
 
         case "com.apple.callkit.call-directory":
-            return "Supplies caller ID to Phone. Removing it stops this app identifying incoming calls."
+            return "向「电话」提供来电识别。移除后此应用无法识别来电。"
 
         case "com.apple.photo-editing":
-            return "Adds editing tools to Photos. Removing it removes those tools from the Photos editor."
+            return "为「照片」提供编辑工具。移除后照片编辑器中不再有这些工具。"
 
         case "com.apple.action-extension":
-            return "Adds actions to the Share Sheet and Services. Removing it removes those actions."
+            return "向分享面板和服务菜单添加操作。移除后这些操作会消失。"
 
         case "com.apple.authentication-services-credential-provider-ui":
-            return "Provides saved passwords to AutoFill. Removing it stops the app filling passwords elsewhere."
+            return "向自动填充提供已保存的密码。移除后此应用无法在其他地方填充密码。"
 
         default:
             return nil
@@ -212,7 +212,7 @@ enum IPABundleParsing {
             case 4: name = "Apple Watch"
             case 6: name = "Mac"
             case 7: name = "Vision"
-            default: name = "family \(number)"
+            default: name = "设备族 \(number)"
             }
 
             if !result.contains(name) {

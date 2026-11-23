@@ -12,15 +12,15 @@ enum IPAError: LocalizedError, Equatable {
     var errorDescription: String? {
         switch self {
         case .unreadableArchive:
-            return "This file is not a valid IPA or ZIP archive."
+            return "此文件不是有效的 IPA 或 ZIP 归档。"
         case .missingInfoPlist:
-            return "Could not find Payload/App.app/Info.plist."
+            return "找不到 Payload/App.app/Info.plist。"
         case .invalidInfoPlist:
-            return "The Info.plist could not be read."
+            return "无法读取 Info.plist。"
         case let .missingEntry(path):
-            return "The archive is missing \(path)."
+            return "归档中缺少 \(path)。"
         case .invalidBundleIdentifier:
-            return "The app has no valid bundle identifier."
+            return "应用没有有效的 Bundle ID。"
         case let .exportFailed(message):
             return message
         case let .validationFailed(problems):

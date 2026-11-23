@@ -276,29 +276,29 @@ struct IPAIconReplacement: Equatable {
         var problems: [String] = []
 
         if plan.slots.isEmpty {
-            problems.append("No icon resources were found in this IPA.")
+            problems.append("此 IPA 中未找到图标资源。")
         }
 
         for slot in plan.slots {
             guard let data = files[slot.path] else {
-                problems.append("Missing icon \(slot.path).")
+                problems.append("缺少图标 \(slot.path)。")
                 continue
             }
 
             guard let metadata = PNGMetadata(data: data), metadata.isComplete else {
-                problems.append("Icon \(slot.path) is not a valid PNG image.")
+                problems.append("图标 \(slot.path) 不是有效的 PNG 图片。")
                 continue
             }
 
             if metadata.width != slot.pixelWidth || metadata.height != slot.pixelHeight {
                 problems.append(
-                    "Icon \(slot.path) is \(metadata.width)×\(metadata.height), expected \(slot.pixelWidth)×\(slot.pixelHeight)."
+                    "图标 \(slot.path) 尺寸为 \(metadata.width)×\(metadata.height)，应为 \(slot.pixelWidth)×\(slot.pixelHeight)。"
                 )
             }
         }
 
         for path in files.keys where !plan.slots.contains(where: { $0.path == path }) {
-            problems.append("Unexpected icon \(path).")
+            problems.append("多余的图标 \(path)。")
         }
 
         return problems

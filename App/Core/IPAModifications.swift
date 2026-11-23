@@ -97,15 +97,15 @@ struct IPAModifications: Equatable {
         }
 
         for root in removedExtensions.sorted() where !info.extensions.contains(where: { $0.root == root }) {
-            problems.append("Unknown app extension.")
+            problems.append("未知的应用扩展。")
         }
 
         for key in plistOverrides.values.keys.sorted() where ProtectedPlistKeys.isProtected(key) {
-            problems.append("\(key) is managed by IPAID and cannot be overridden.")
+            problems.append("\(key) 由 IPAID 管理，无法覆盖。")
         }
 
         for key in plistOverrides.removedKeys.sorted() where ProtectedPlistKeys.isProtected(key) {
-            problems.append("\(key) is required and cannot be removed.")
+            problems.append("\(key) 为必需项，无法删除。")
         }
 
         if let icon {
@@ -166,7 +166,7 @@ struct IPAModificationSummary: Equatable {
             changes.append(
                 IPAModificationChange(
                     id: "displayName",
-                    label: "Display name",
+                    label: "显示名称",
                     original: info.displayName,
                     updated: modifications.trimmedDisplayName
                 )
@@ -177,20 +177,20 @@ struct IPAModificationSummary: Equatable {
             changes.append(
                 IPAModificationChange(
                     id: "marketingVersion",
-                    label: "Marketing version",
-                    original: info.marketingVersion.isEmpty ? "None" : info.marketingVersion,
+                    label: "版本号",
+                    original: info.marketingVersion.isEmpty ? "无" : info.marketingVersion,
                     updated: modifications.trimmedMarketingVersion
                 )
             )
-            warnings.append("In-app version text is not changed.")
+            warnings.append("应用内的版本显示不会随之改变。")
         }
 
         if modifications.buildNumberChanged(from: info) {
             changes.append(
                 IPAModificationChange(
                     id: "buildNumber",
-                    label: "Build number",
-                    original: info.buildNumber.isEmpty ? "None" : info.buildNumber,
+                    label: "构建号",
+                    original: info.buildNumber.isEmpty ? "无" : info.buildNumber,
                     updated: modifications.trimmedBuildNumber
                 )
             )
@@ -200,9 +200,9 @@ struct IPAModificationSummary: Equatable {
             changes.append(
                 IPAModificationChange(
                     id: "urlScheme",
-                    label: "URL scheme",
-                    original: info.urlScheme.isEmpty ? "None" : info.urlScheme,
-                    updated: modifications.trimmedURLScheme.isEmpty ? "None" : modifications.trimmedURLScheme
+                    label: "URL Scheme",
+                    original: info.urlScheme.isEmpty ? "无" : info.urlScheme,
+                    updated: modifications.trimmedURLScheme.isEmpty ? "无" : modifications.trimmedURLScheme
                 )
             )
         }
@@ -211,7 +211,7 @@ struct IPAModificationSummary: Equatable {
             changes.append(
                 IPAModificationChange(
                     id: "extensions",
-                    label: "Extensions",
+                    label: "扩展",
                     original: "\(info.extensions.count)",
                     updated: "\(info.extensions.count - modifications.removedExtensions.count)"
                 )
@@ -222,14 +222,14 @@ struct IPAModificationSummary: Equatable {
             changes.append(
                 IPAModificationChange(
                     id: "icon",
-                    label: "Icon",
-                    original: info.iconPlan.existingSlots.isEmpty ? "Bundled icon" : "Original icon",
-                    updated: "\(icon.imageName) (\(icon.files.count) files)"
+                    label: "图标",
+                    original: info.iconPlan.existingSlots.isEmpty ? "内置图标" : "原图标",
+                    updated: "\(icon.imageName)（\(icon.files.count) 个文件）"
                 )
             )
 
             if info.iconPlan.usesAssetCatalog {
-                warnings.append("Icons inside Assets.car cannot be replaced; IPAID adds loose icon files instead.")
+                warnings.append("Assets.car 内的图标无法替换，IPAID 会改为添加独立的图标文件。")
             }
         }
 
@@ -238,8 +238,8 @@ struct IPAModificationSummary: Equatable {
                 IPAModificationChange(
                     id: "advanced",
                     label: "Info.plist",
-                    original: "App settings",
-                    updated: "\(modifications.plistOverrides.changeCount) edits"
+                    original: "应用设置",
+                    updated: "\(modifications.plistOverrides.changeCount) 处修改"
                 )
             )
         }
@@ -250,9 +250,9 @@ struct IPAModificationSummary: Equatable {
             changes.append(
                 IPAModificationChange(
                     id: "editedFiles",
-                    label: "Edited files",
-                    original: count == 1 ? "1 file" : "\(count) files",
-                    updated: "Saved"
+                    label: "已编辑文件",
+                    original: count == 1 ? "1 个文件" : "\(count) 个文件",
+                    updated: "已保存"
                 )
             )
         }

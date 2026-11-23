@@ -86,7 +86,7 @@ struct IPASheet<Content: View>: View {
                 Spacer()
 
                 if let onClose {
-                    Button("Done", action: onClose)
+                    Button("完成", action: onClose)
                         .font(.body.weight(.semibold))
                 }
             }
@@ -491,7 +491,7 @@ struct IPAPathList: View {
             }
 
             if paths.count > limit {
-                Text("+ \(paths.count - limit) more")
+                Text("还有 \(paths.count - limit) 项")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }

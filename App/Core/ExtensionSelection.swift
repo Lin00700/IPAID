@@ -7,7 +7,7 @@ enum ExtensionSelection {
     }
 
     static func bulkTitle(available: [String], removed: Set<String>) -> String {
-        allEnabled(available: available, removed: removed) ? "Disable All" : "Enable All"
+        allEnabled(available: available, removed: removed) ? "全部禁用" : "全部启用"
     }
 
     static func bulkSelection(available: [String], removed: Set<String>) -> Set<String> {

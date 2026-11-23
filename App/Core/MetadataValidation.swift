@@ -2,25 +2,25 @@ import Foundation
 
 enum MetadataValidation {
 
-    static let cannotBeEmpty = "Cannot be empty"
+    static let cannotBeEmpty = "不能为空"
 
     static func bundleIdentifier(_ id: String) -> String {
         let clean = id.trimmingCharacters(in: .whitespacesAndNewlines)
 
         if clean.isEmpty {
-            return "Bundle ID cannot be empty."
+            return "Bundle ID 不能为空。"
         }
 
         if clean.count > 120 {
-            return "Bundle ID is too long."
+            return "Bundle ID 太长。"
         }
 
         if !clean.contains(".") {
-            return "Bundle ID must contain at least one dot."
+            return "Bundle ID 至少要包含一个点号。"
         }
 
         if clean.contains("..") {
-            return "Bundle ID cannot contain two dots in a row."
+            return "Bundle ID 不能包含连续的两个点号。"
         }
 
         let allowed = CharacterSet(
@@ -28,11 +28,11 @@ enum MetadataValidation {
         )
 
         if clean.rangeOfCharacter(from: allowed.inverted) != nil {
-            return "Bundle ID contains invalid characters."
+            return "Bundle ID 含有无效字符。"
         }
 
         if clean.hasPrefix(".") || clean.hasSuffix(".") {
-            return "Bundle ID cannot start or end with a dot."
+            return "Bundle ID 不能以点号开头或结尾。"
         }
 
         return ""
@@ -42,11 +42,11 @@ enum MetadataValidation {
         let clean = name.trimmingCharacters(in: .whitespacesAndNewlines)
 
         if clean.isEmpty {
-            return "Display name cannot be empty."
+            return "显示名称不能为空。"
         }
 
         if clean.count > 30 {
-            return "Display name is too long."
+            return "显示名称太长。"
         }
 
         return ""
@@ -56,15 +56,15 @@ enum MetadataValidation {
         let clean = scheme.trimmingCharacters(in: .whitespacesAndNewlines)
 
         if clean.isEmpty {
-            return allowEmpty ? "" : "URL scheme cannot be empty."
+            return allowEmpty ? "" : "URL Scheme 不能为空。"
         }
 
         if clean.count > 100 {
-            return "URL scheme is too long."
+            return "URL Scheme 太长。"
         }
 
         if clean.contains("://") || clean.contains("/") || clean.contains(" ") {
-            return "URL scheme contains invalid characters."
+            return "URL Scheme 含有无效字符。"
         }
 
         let allowed = CharacterSet(
@@ -72,11 +72,11 @@ enum MetadataValidation {
         )
 
         if clean.rangeOfCharacter(from: allowed.inverted) != nil {
-            return "URL scheme contains invalid characters."
+            return "URL Scheme 含有无效字符。"
         }
 
         guard let first = clean.first, first.isLetter else {
-            return "URL scheme must start with a letter."
+            return "URL Scheme 必须以字母开头。"
         }
 
         return ""
@@ -86,22 +86,22 @@ enum MetadataValidation {
         let clean = version.trimmingCharacters(in: .whitespacesAndNewlines)
 
         if clean.isEmpty {
-            return "Marketing version cannot be empty."
+            return "版本号不能为空。"
         }
 
         if clean.count > 18 {
-            return "Marketing version is too long."
+            return "版本号太长。"
         }
 
         let parts = clean.split(separator: ".", omittingEmptySubsequences: false)
 
         if parts.isEmpty || parts.count > 3 {
-            return "Marketing version must use up to three numbers separated by dots."
+            return "版本号最多三段数字，用点号分隔。"
         }
 
         for part in parts {
             if part.isEmpty || part.count > 9 || part.contains(where: { !$0.isNumber }) {
-                return "Marketing version must use numbers separated by dots."
+                return "版本号只能由数字和点号组成。"
             }
         }
 
@@ -112,22 +112,22 @@ enum MetadataValidation {
         let clean = build.trimmingCharacters(in: .whitespacesAndNewlines)
 
         if clean.isEmpty {
-            return "Build number cannot be empty."
+            return "构建号不能为空。"
         }
 
         if clean.count > 18 {
-            return "Build number is too long."
+            return "构建号太长。"
         }
 
         let parts = clean.split(separator: ".", omittingEmptySubsequences: false)
 
         if parts.count > 3 {
-            return "Build number must use up to three numbers separated by dots."
+            return "构建号最多三段数字，用点号分隔。"
         }
 
         for part in parts {
             if part.isEmpty || part.count > 9 || part.contains(where: { !$0.isNumber }) {
-                return "Build number can only contain numbers and dots."
+                return "构建号只能包含数字和点号。"
             }
         }
 

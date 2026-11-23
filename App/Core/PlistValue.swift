@@ -12,14 +12,14 @@ enum PlistValue: Equatable {
 
     var typeName: String {
         switch self {
-        case .string: return "String"
-        case .bool: return "Boolean"
-        case .integer: return "Integer"
-        case .real: return "Number"
-        case .date: return "Date"
-        case .data: return "Data"
-        case .array: return "Array"
-        case .dictionary: return "Dictionary"
+        case .string: return "字符串"
+        case .bool: return "布尔"
+        case .integer: return "整数"
+        case .real: return "数字"
+        case .date: return "日期"
+        case .data: return "数据"
+        case .array: return "数组"
+        case .dictionary: return "字典"
         }
     }
 
@@ -37,7 +37,7 @@ enum PlistValue: Equatable {
         case let .string(value):
             return value
         case let .bool(value):
-            return value ? "Yes" : "No"
+            return value ? "是" : "否"
         case let .integer(value):
             return String(value)
         case let .real(value):
@@ -45,11 +45,11 @@ enum PlistValue: Equatable {
         case let .date(value):
             return ISO8601DateFormatter().string(from: value)
         case let .data(value):
-            return "\(value.count) bytes"
+            return "\(value.count) 字节"
         case let .array(values):
-            return values.isEmpty ? "Empty" : "\(values.count) items"
+            return values.isEmpty ? "空" : "\(values.count) 项"
         case let .dictionary(values):
-            return values.isEmpty ? "Empty" : "\(values.count) keys"
+            return values.isEmpty ? "空" : "\(values.count) 个键"
         }
     }
 

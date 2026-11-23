@@ -156,7 +156,7 @@ final class FingerprintTests: XCTestCase {
     }
 
     func testExtensionTipsMatchNames() {
-        XCTAssertTrue(IPAExtensionInfo.tip(forName: "Widget").contains("widget"))
+        XCTAssertTrue(IPAExtensionInfo.tip(forName: "Widget").contains("小组件"))
         XCTAssertTrue(IPAExtensionInfo.tip(forName: "Safari").contains("Safari"))
         XCTAssertFalse(IPAExtensionInfo.tip(forName: "Something").isEmpty)
     }
@@ -167,15 +167,15 @@ final class FingerprintTests: XCTestCase {
             pointIdentifier: "com.apple.widgetkit-extension"
         )
 
-        XCTAssertTrue(widget.contains("widget"))
+        XCTAssertTrue(widget.contains("小组件"))
 
         let keyboard = IPAExtensionInfo.tip(
             forName: "Widget",
             pointIdentifier: "com.apple.keyboard-service"
         )
 
-        XCTAssertTrue(keyboard.contains("keyboard"))
-        XCTAssertFalse(keyboard.contains("Home Screen"))
+        XCTAssertTrue(keyboard.contains("键盘"))
+        XCTAssertFalse(keyboard.contains("小组件"))
     }
 
     func testUnknownExtensionPointFallsBackToTheName() {
@@ -184,7 +184,7 @@ final class FingerprintTests: XCTestCase {
             pointIdentifier: "com.example.unknown-point"
         )
 
-        XCTAssertTrue(tip.contains("widget"))
+        XCTAssertTrue(tip.contains("小组件"))
     }
 
     func testUnknownExtensionFallsBackToTheGenericTip() {
@@ -192,7 +192,7 @@ final class FingerprintTests: XCTestCase {
 
         XCTAssertEqual(
             tip,
-            "App extension component. Removing it can reduce signing/App ID usage, but some app features may stop working."
+            "应用扩展组件。移除后可减少签名与 App ID 占用，但应用的某些功能可能无法使用。"
         )
     }
 
@@ -202,7 +202,7 @@ final class FingerprintTests: XCTestCase {
     }
 
     func testFileSizeFormatting() {
-        XCTAssertEqual(IPAFormatting.fileSize(Int64(0)), "Unknown")
+        XCTAssertEqual(IPAFormatting.fileSize(Int64(0)), "未知")
         XCTAssertFalse(IPAFormatting.fileSize(Int64(2048)).isEmpty)
     }
 }

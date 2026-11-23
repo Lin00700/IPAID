@@ -21,7 +21,7 @@ enum IPAExporter {
         progress: ((Double, String) -> Void)? = nil
     ) throws -> IPAExportResult {
         guard request.sourceURL.standardizedFileURL != request.outputURL.standardizedFileURL else {
-            throw IPAError.exportFailed("The exported IPA cannot replace the original file.")
+            throw IPAError.exportFailed("导出的 IPA 不能覆盖原文件。")
         }
 
         let source = try IPAArchive(url: request.sourceURL)
@@ -34,7 +34,7 @@ enum IPAExporter {
         }
 
         guard modifications.hasChanges(from: info) else {
-            throw IPAError.exportFailed("No changes to export.")
+            throw IPAError.exportFailed("没有可导出的更改。")
         }
 
         var mainPlist = source.infoPlist
@@ -119,7 +119,7 @@ enum IPAExporter {
                 withIntermediateDirectories: true
             )
         } catch {
-            throw IPAError.exportFailed("Could not create the export folder.")
+            throw IPAError.exportFailed("无法创建导出文件夹。")
         }
 
         if fileManager.fileExists(atPath: outputURL.path) {
@@ -163,7 +163,7 @@ enum IPAExporter {
 
                     remainingPaths.insert(entry.path)
                     written += 1
-                    progress?(Double(written) / Double(total), "Packaging \(written) of \(source.entries.count)…")
+                    progress?(Double(written) / Double(total), "正在打包 \(written)/\(source.entries.count)…")
                     continue
                 }
 
@@ -199,7 +199,7 @@ enum IPAExporter {
 
                 remainingPaths.insert(entry.path)
                 written += 1
-                progress?(Double(written) / Double(total), "Packaging \(written) of \(source.entries.count)…")
+                progress?(Double(written) / Double(total), "正在打包 \(written)/\(source.entries.count)…")
             }
 
             for slot in info.iconPlan.slots where !slot.isExisting {
@@ -243,7 +243,7 @@ enum IPAExporter {
                 )
             )
 
-            progress?(1, "Export complete.")
+            progress?(1, "导出完成。")
             return result
         } catch {
             try? fileManager.removeItem(at: outputURL)
@@ -303,35 +303,35 @@ enum IPAExporter {
         do {
             archive = try IPAArchive(url: url)
         } catch {
-            throw IPAError.exportFailed("The exported IPA could not be reopened.")
+            throw IPAError.exportFailed("无法重新打开导出的 IPA。")
         }
 
         if archive.info.bundleIdentifier != expectedBundleIdentifier {
-            problems.append("Bundle ID was not written correctly.")
+            problems.append("Bundle ID 未正确写入。")
         }
 
         if let expectedVersion, archive.info.marketingVersion != expectedVersion {
-            problems.append("Marketing version was not written correctly.")
+            problems.append("版本号未正确写入。")
         }
 
         if let expectedBuild, archive.info.buildNumber != expectedBuild {
-            problems.append("Build number was not written correctly.")
+            problems.append("构建号未正确写入。")
         }
 
         if !archive.info.executable.isEmpty,
            let executable = archive.entry(at: archive.info.executablePath) {
             if executable.uncompressedSize == 0 {
-                problems.append("The app executable is empty.")
+                problems.append("应用的可执行文件为空。")
             }
         } else if !archive.info.executable.isEmpty {
-            problems.append("The app executable is missing.")
+            problems.append("应用的可执行文件缺失。")
         }
 
         let paths = Set(archive.entries.map(\.path))
         let missing = expectedPaths.subtracting(paths)
 
         if !missing.isEmpty {
-            problems.append("\(missing.count) archive entries are missing.")
+            problems.append("有 \(missing.count) 个归档条目缺失。")
         }
 
         if let plan {
@@ -339,12 +339,12 @@ enum IPAExporter {
                 guard let data = try? archive.data(at: slot.path),
                       let metadata = PNGMetadata(data: data),
                       metadata.isComplete else {
-                    problems.append("Icon \(slot.path) is missing or invalid.")
+                    problems.append("图标 \(slot.path) 缺失或无效。")
                     continue
                 }
 
                 if metadata.width != slot.pixelWidth || metadata.height != slot.pixelHeight {
-                    problems.append("Icon \(slot.path) has the wrong size.")
+                    problems.append("图标 \(slot.path) 尺寸不正确。")
                 }
             }
         }
