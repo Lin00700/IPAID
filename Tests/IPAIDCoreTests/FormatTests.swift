@@ -202,7 +202,7 @@ final class FormatTests: XCTestCase {
         )
         XCTAssertEqual(
             IPABundleParsing.deviceFamilies(from: ["UIDeviceFamily": [9]]),
-            ["family 9"]
+            ["设备族 9"]
         )
         XCTAssertTrue(IPABundleParsing.deviceFamilies(from: [:]).isEmpty)
     }

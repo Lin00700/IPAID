@@ -223,7 +223,7 @@ final class IPAExporterTests: XCTestCase {
         modifications.marketingVersion = "abc"
 
         let problems = modifications.problems(comparedTo: archive.info)
-        XCTAssertTrue(problems.contains("Bundle ID must contain at least one dot."))
+        XCTAssertTrue(problems.contains("Bundle ID 至少要包含一个点号。"))
         XCTAssertTrue(problems.contains("版本号只能由数字和点号组成。"))
     }
 
